@@ -23,8 +23,12 @@ else()
 set(SOURCES ${SOURCES} seshat_interface_stub.c)
 endif (ENABLE_SESHAT)
 
-
+if (PARODUS_SERVICE_APP)
 add_executable(parodus ${SOURCES})
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DPARODUS_SERVICE_APP ")
+else ()
+add_library(parodus SHARED ${SOURCES})
+endif (PARODUS_SERVICE_APP)
 
 target_link_libraries (parodus
     ${CMAKE_THREAD_LIBS_INIT}
@@ -52,5 +56,10 @@ if (ENABLE_SESHAT)
 target_link_libraries (parodus -llibseshat)
 endif (ENABLE_SESHAT)
 
+if (PARODUS_SERVICE_APP)
+set (INSTALL_DIR bin)
+else ()
+set (INSTALL_DIR lib)
+endif ()
 
-install (TARGETS parodus DESTINATION bin)
+install (TARGETS parodus DESTINATION ${INSTALL_DIR})

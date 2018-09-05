@@ -51,23 +51,27 @@ static void sig_handler(int sig);
 /*----------------------------------------------------------------------------*/
 /*                             External Functions                             */
 /*----------------------------------------------------------------------------*/
-int main( int argc, char **argv)
+#ifdef PARODUS_SERVICE_APP
+int main( int argc, char **argv )
+#else
+int ParodusServiceMain( int argc, char **argv )
+#endif
 {
 #ifdef INCLUDE_BREAKPAD
     breakpad_ExceptionHandler();
 #else
     signal(SIGTERM, sig_handler);
-	signal(SIGINT, sig_handler);
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
-	signal(SIGSEGV, sig_handler);
-	signal(SIGBUS, sig_handler);
-	signal(SIGKILL, sig_handler);
-	signal(SIGFPE, sig_handler);
-	signal(SIGILL, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGHUP, sig_handler);
-	signal(SIGALRM, sig_handler);
+    signal(SIGINT, sig_handler);
+    signal(SIGUSR1, sig_handler);
+    signal(SIGUSR2, sig_handler);
+    signal(SIGSEGV, sig_handler);
+    signal(SIGBUS, sig_handler);
+    signal(SIGKILL, sig_handler);
+    signal(SIGFPE, sig_handler);
+    signal(SIGILL, sig_handler);
+    signal(SIGQUIT, sig_handler);
+    signal(SIGHUP, sig_handler);
+    signal(SIGALRM, sig_handler);
 #endif	
     ParodusCfg *cfg;
 
